@@ -1,0 +1,36 @@
+@extends('blog::layouts.app')
+
+@section('title', 'Inicio - Mi Blog')
+
+@section('content')
+<div class="space-y-8">
+    <h1 class="text-3xl font-bold text-gray-900">Últimos Posts</h1>
+    
+    @forelse($posts as $post)
+    <article class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-2">
+            <a href="{{ route('posts.show', $post->slug) }}" class="hover:text-blue-600">
+                {{ $post->title }}
+            </a>
+        </h2>
+        
+        @if($post->excerpt)
+        <p class="text-gray-600 mb-4">{{ $post->excerpt }}</p>
+        @endif
+        
+        <div class="flex justify-between items-center text-sm text-gray-500">
+            <span>Publicado el {{ $post->published_at->format('d/m/Y') }}</span>
+            <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-500 hover:text-blue-700">
+                Leer más →
+            </a>
+        </div>
+    </article>
+    @empty
+    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <p class="text-gray-500">No hay posts publicados aún.</p>
+    </div>
+    @endforelse
+
+    {{ $posts->links() }}
+</div>
+@endsection
