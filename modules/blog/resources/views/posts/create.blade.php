@@ -36,6 +36,16 @@
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
+        <div class="mb-6">
+            <label for="published" class="flex items-center space-x-2">
+                <input type="checkbox" name="published" id="published" value="1" {{ old('published') ? 'checked' : '' }}
+                    class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span class="text-sm font-medium text-gray-700">Publicar inmediatamente</span>
+            </label>
+            @error('published')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
         <div class="flex justify-end space-x-4">
             <a href="{{ route('posts.index') }}" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50">

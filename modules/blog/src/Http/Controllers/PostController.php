@@ -32,22 +32,26 @@ class PostController extends Controller
 
     public function create(): View
     {
-        return view('posts.create');
+        $this->authorize('blog.create'); 
+        return view('blog::posts.create');
     }
 
     public function store(Request $request): RedirectResponse
     {
+        $this->authorize('blog.create');
+        
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'excerpt' => 'nullable|string|max:500'
+            'excerpt' => 'nullable|string|max:500',
+            'published' => 'boolean'
         ]);
 
         $post = Post::create([
             ...$validated,
+            'slug' => \Illuminate\Support\Str::slug($validated['title']),
             'user_id' => auth()->id(),
-            'published' => true,
-            'published_at' => now()
+            'published_at' => $validated['published'] ?? false ? now() : null
         ]);
 
         return redirect()->route('posts.show', $post->slug);
