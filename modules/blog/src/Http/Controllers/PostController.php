@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class PostController extends Controller
+class PostController extends \App\Http\Controllers\Controller
 {
     public function index(): View
     {
@@ -32,13 +32,13 @@ class PostController extends Controller
 
     public function create(): View
     {
-        $this->authorize('blog.create'); 
+        #$this->authorize('blog.create'); 
         return view('blog::posts.create');
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $this->authorize('blog.create');
+        #$this->authorize('blog.create');
         
         $validated = $request->validate([
             'title' => 'required|string|max:255',
