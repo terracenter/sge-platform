@@ -1,0 +1,91 @@
+Desarrollo: Plataforma SaaS Modular con Sistema de Licencias y Automatización
+Descripción General
+Plataforma SaaS modular estilo WordPress donde los clientes pueden activar/desactivar módulos según su licencia. Incluye integración con n8n para automatizaciones y se despliega con Git CI/CD.
+
+Arquitectura Completa
+Stack Técnico:
+
+Backend: Laravel 12 con arquitectura modular
+
+Base de datos: PostgreSQL 18 (contenedor Docker)
+
+Frontend: Blade + Tailwind CSS
+
+Automatización: n8n integrado
+
+Entorno: Laravel Sail + Docker
+
+CI/CD: GitLab CI/GitHub Actions
+
+Despliegue: Multi-tenant SaaS
+
+Sistema de Licencias y Módulos
+text
+modules/
+├── blog/                    # Módulo Blog
+├── ecommerce/              # Módulo E-commerce  
+├── automation/             # Módulo n8n Integration
+├── licensing/              # Sistema de Licencias
+└── saas/                   # Gestión Multi-tenant
+Modelo de Licencias:
+
+php
+// Tabla licenses: id, user_id, plan_type (basic/pro/enterprise), modules_allowed, expires_at, is_active
+// Tabla user_modules: id, user_id, module_name, is_active, licensed_until
+Módulos Principales
+Sistema de Licencias
+
+Gestión de planes (Basic, Pro, Enterprise)
+
+Activación/desactivación automática de módulos
+
+Renewal automático y facturación
+
+Módulo Blog
+
+CRUD de posts con permisos por licencia
+
+Solo disponible en planes Pro/Enterprise
+
+Módulo n8n Integration
+
+API endpoints para n8n
+
+Automatizaciones basadas en eventos del sistema
+
+Webhooks entre Laravel ↔ n8n
+
+Panel SaaS Multi-tenant
+
+Gestión de clientes
+
+Facturación y pagos
+
+Analytics de uso
+
+Flujo CI/CD
+yaml
+# .gitlab-ci.yml o github/workflows/deploy.yml
+stages:
+  - test
+  - build
+  - deploy_saas
+  - deploy_n8n
+Integración n8n
+Webhooks de Laravel a n8n para eventos (nuevo post, nueva licencia, etc.)
+
+API de n8n para ejecutar automatizaciones desde Laravel
+
+Workers asíncronos para procesamiento
+
+Modelo de Negocio SaaS
+Planes por módulos activos
+
+Facturación recurrente
+
+Panel de administración white-label para clientes
+
+API para integraciones externas
+
+¿Esta descripción captura mejor el alcance completo del desarrollo?
+
