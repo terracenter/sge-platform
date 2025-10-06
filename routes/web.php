@@ -24,5 +24,15 @@ require __DIR__.'/auth.php';
 
 // Inicio - AL FINAL para que no interfiera con otras rutas
 Route::get('/', function () {
-    return view('welcome');
+    $publicModules = collect(config('modules'))->filter(function ($module) {
+        return $module['is_public'] === true;
+    });
+    
+    return view('welcome', compact('publicModules'));
 });
+
+// Dashboard (protegido)
+Route::get('/dashboard', function () {
+    $modules = config('modules');
+    return view('dashboard', compact('modules'));
+})->name('dashboard')->middleware('auth');
