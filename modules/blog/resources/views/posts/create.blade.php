@@ -20,10 +20,12 @@
         </div>
 
         <div class="mb-4">
-            <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-2">Resumen (opcional)</label>
-            <textarea name="excerpt" id="excerpt" rows="3"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('excerpt') }}</textarea>
-            @error('excerpt')
+            <label for="is_public" class="flex items-center space-x-2">
+                <input type="checkbox" name="is_public" id="is_public" value="1" {{ old('is_public') ? 'checked' : '' }}
+                class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span class="text-sm font-medium text-gray-700">¿Post público? (Visible para todos)</span>
+            </label>
+            @error('is_public')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
