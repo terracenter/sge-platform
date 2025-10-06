@@ -89,3 +89,19 @@ API para integraciones externas
 
 ¿Esta descripción captura mejor el alcance completo del desarrollo?
 
+
+Permisos 
+// Estructura de tablas
+users → user_groups → groups → group_permissions → permissions
+                      ↓
+              module_permissions
+
+
+Nuevo Requerimiento:
+Posts privados por defecto
+
+Campo is_public en la tabla posts
+
+Permiso blog.view para ver posts (incluso los públicos)
+
+Posts públicos visibles para todos, privados solo para autorizado

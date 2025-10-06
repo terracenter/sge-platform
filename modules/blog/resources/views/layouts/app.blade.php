@@ -13,7 +13,25 @@
                 <a href="{{ route('posts.index') }}" class="text-xl font-bold text-gray-800">Mi Blog</a>
                 <div class="space-x-4">
                     <a href="{{ route('posts.index') }}" class="text-gray-600 hover:text-gray-900">Inicio</a>
-                    <a href="{{ route('posts.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Nuevo Post</a>
+                    
+                    @auth
+                        <!-- Enlace al Dashboard -->
+                        <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                        
+                        <!-- Enlace para crear post -->
+                        <a href="{{ route('posts.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Nuevo Post</a>
+                        
+                        <!-- Logout -->
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                Cerrar Sesión
+                            </button>
+                        </form>
+                    @else
+                        <!-- Enlace de login para usuarios no autenticados -->
+                        <a href="{{ route('login') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Login</a>
+                    @endauth
                 </div>
             </div>
         </div>
