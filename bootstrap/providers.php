@@ -2,5 +2,7 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\BlogServiceProvider::class,
+
+    // Módulos
+    Blog\Providers\BlogServiceProvider::class,
 ];

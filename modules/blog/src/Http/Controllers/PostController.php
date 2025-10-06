@@ -67,4 +67,46 @@ class PostController extends Controller
 
         return redirect()->route('posts.show', $post->slug);
     }
+
+    public function edit(string $slug): View
+{
+    $post = Post::where('slug', $slug)->firstOrFail();
+    $this->authorize('blog.update', $post);
+    return view('blog::posts.edit', compact('post'));
+}
+
+public function update(Request $request, string $slug): RedirectResponse
+{
+    $post = Post::where('slug', $slug)->firstOrFail();
+    $this->authorize('blog.update', $post);
+    
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'excerpt' => 'nullable|string|max:500',
+        'published' => 'boolean',
+        'is_public' => 'boolean'
+    ]);
+
+    $post->update([
+        ...$validated,
+        'slug' => \Illuminate\Support\Str::slug($validated['title']),
+        'published_at' => $validated['published'] ?? false ? now() : null
+    ]);
+
+    return redirect()->route('posts.show', $post->slug)
+                   ->with('success', 'Post actualizado correctamente');
+}
+
+public function destroy(string $slug): RedirectResponse
+{
+    $post = Post::where('slug', $slug)->firstOrFail();
+    $this->authorize('blog.delete', $post);
+    $post->delete();
+
+    return redirect()->route('posts.index')
+                   ->with('success', 'Post eliminado correctamente');
+}
+
+
 }
