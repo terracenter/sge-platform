@@ -14,6 +14,7 @@ class PostPolicy
 
     public function update(User $user, Post $post): bool
     {
+        \Log::info("Policy check - User: {$user->id}, Post User: {$post->user_id}, Result: " . ($user->id === $post->user_id ? 'YES' : 'NO'));
         return $user->id === $post->user_id;
     }
 

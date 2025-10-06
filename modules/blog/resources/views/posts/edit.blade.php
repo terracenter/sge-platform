@@ -3,8 +3,20 @@
 @section('title', 'Editar Post - Mi Blog')
 
 @section('content')
+{{-- Agregar esto si no está --}}
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="max-w-4xl mx-auto">
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Editar Post</h1>
+    {{-- ... resto del código ... --}}
 
     <form action="{{ route('posts.update', $post->slug) }}" method="POST" class="bg-white rounded-lg shadow-md p-6">
         @csrf
