@@ -25,19 +25,19 @@
 
     {{-- BOTONES DE EDICIÓN --}}
     @auth
-        @if(auth()->user()->can('blog.update', $post) || auth()->user()->can('blog.delete', $post))
+        @if(auth()->user()->can('update', $post) || auth()->user()->can('delete', $post))
         <div class="mt-8 pt-6 border-t border-gray-200">
             <div class="flex space-x-4">
-                @can('blog.update', $post)
+                @can('update', $post)
                 <a href="{{ route('posts.edit', $post->slug) }}" 
-                   class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     Editar Post
                 </a>
                 @endcan
                 
-                @can('blog.delete', $post)
+                @can('delete', $post)
                 <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" 
-                      onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?')">
+                    onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">

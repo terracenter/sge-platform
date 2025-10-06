@@ -27,7 +27,7 @@
             
             {{-- Botones de edición para usuarios autenticados --}}
             @auth
-                @can('blog.update', $post)
+                @can('update', $post)
                 <a href="{{ route('posts.edit', $post->slug) }}" 
                    class="text-green-500 hover:text-green-700" title="Editar">
                     ✏️
